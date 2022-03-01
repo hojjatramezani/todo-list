@@ -1,0 +1,15 @@
+
+
+body{
+    margin: 0px;
+    padding: 0px;
+    direction: ltr;
+    background-image: url(./images/back.jpg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center top;
+    font-family:roboto , Arial !important;
+    color: white
+}
+
+.checked{text-decoration: line-through; opacity: 0.7;}
