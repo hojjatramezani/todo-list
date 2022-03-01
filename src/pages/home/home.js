@@ -31,6 +31,7 @@ function Home() {
             inpElement.current.focus();
         }
     }
+    // -----1234 ---
 
     const deletItemHandler = (id) => {
         const newTasksList = tasks.filter(task => task.id !== id)
