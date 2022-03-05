@@ -1,16 +1,21 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import {  ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import Home from './pages/home/home';
-import {theme} from './config'
+import Information from './pages/home/information';
+import { theme } from './config'
+import { TodoProvider } from "./context/TodoContext";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-        </Routes>
-      </BrowserRouter>
+      <TodoProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route exact path="/information" element={<Information />} />
+            <Route exact path="/" element={<Home />} />
+          </Routes>
+        </BrowserRouter>
+      </TodoProvider>
     </ThemeProvider>
   );
 }

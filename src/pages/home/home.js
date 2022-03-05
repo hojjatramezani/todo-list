@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import { Box, Grid, Paper, Typography, TextField, Button } from '@mui/material';
 import { pink, grey } from '@mui/material/colors';
@@ -105,6 +106,11 @@ function Home() {
 
                         <Box py={2} px={2} sx={{ width: '100%', bgcolor: grey[100], position: 'absolute', bottom: 0, left: 0, boxSizing: 'border-box' }} display="flex" justifyContent={"space-between"}>
                             <div>Tasks: {tasks.length}</div>
+                            <Link to={`/information`}>
+                                <Button variant="outlined" size="small">
+                                    view info
+                                </Button>
+                            </Link>
                             <div>Done: {numCecked} </div>
                         </Box>
                     </Paper>
