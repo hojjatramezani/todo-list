@@ -1,16 +1,16 @@
-import React from 'react'
+import React from 'react';
 import Container from '@mui/material/Container';
 import { Box, Paper, Typography } from '@mui/material';
 import { pink } from '@mui/material/colors';
-import {useTodoState} from './../../context/TodoContext'
+import { useTodoState } from './../../context/TodoContext';
 
 
 
 
 function Information(props) {
 
-    const {TodoList} = useTodoState()
-    
+    const { TodoList } = useTodoState();
+
     return (
         <div>
             <Container maxWidth="lg" sx={{ py: 5, px: 1 }}>
@@ -23,7 +23,13 @@ function Information(props) {
                             <div>wewew</div>
                             <div>
                                 {
-                                    TodoList.map((item , i) => <div key={i}>{item}</div>)
+                                    TodoList.map((task, i) => {
+                                        return (
+                                            <div key={i}>
+                                                <div >{task.name} {task.checked ? 'true' : 'false'}</div>
+                                            </div>
+                                        );
+                                    })
                                 }
                             </div>
                         </Box>
@@ -32,7 +38,7 @@ function Information(props) {
 
             </Container>
         </div>
-    )
+    );
 }
 
-export default Information
+export default Information;

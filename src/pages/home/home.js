@@ -9,15 +9,26 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { v4 } from 'uuid';
+import {useTodoState , useTodoDispatch , setTodoList} from './../../context/TodoContext'
 
 
 
 
 function Home() {
+
+    const {TodoList} = useTodoState();
+    const todoDispatch = useTodoDispatch();
+
+
     const [newTask, setNewTask] = useState('')
     const [errText, setErrText] = useState('')
-    const [tasks, setTasks] = useState([])
+    // const [tasks, setTasks] = useState([])
     const [numCecked, setNumCecked] = useState(0)
+
+    console.log('11111');
+
+    // setTasks([...TodoList])
+ 
 
     const inpElement = useRef();
 
@@ -27,7 +38,8 @@ function Home() {
         }
         else {
             setErrText('')
-            setTasks([...tasks, { id: v4(), name: newTask, checked: false }])
+            // setTasks([...tasks, { id: v4(), name: newTask, checked: false }])
+            setTodoList(todoDispatch , [...TodoList, { id: v4(), name: newTask, checked: false }] )
             setNewTask('');
             inpElement.current.focus();
         }
@@ -35,26 +47,28 @@ function Home() {
     // -----1234 ---
 
     const deletItemHandler = (id) => {
-        const newTasksList = tasks.filter(task => task.id !== id)
-        setTasks([...newTasksList])
+        const newTasksList = TodoList.filter(task => task.id !== id)
+        // setTasks([...newTasksList])
+        setTodoList(todoDispatch , [...newTasksList] )
     }
 
     const handelChecked = (e, id) => {
 
-        const editedTaskList = tasks.map(task => {
+        const editedTaskList = TodoList.map(task => {
             return task.id !== id ? task : { ...task, checked: e.target.checked }
         })
-        setTasks([...editedTaskList])
+        // setTasks([...editedTaskList])
+        setTodoList(todoDispatch , [...editedTaskList] )
     }
 
     useEffect(() => {
         setNumCecked(0)
-        tasks.map(task => {
-            if (task.checked === true) {
+        TodoList.map(TodoList => {
+            if (TodoList.checked === true) {
                 setNumCecked(prev => prev + 1)
             }
         })
-    }, [tasks])
+    }, [TodoList])
 
 
 
@@ -92,11 +106,11 @@ function Home() {
 
                         <Box p={2}>
                             {
-                                tasks.length === 0 ? <NotFound />
+                                TodoList.length === 0 ? <NotFound />
                                     : <FormGroup>
-                                        {tasks.map((task) => (
+                                        {TodoList.map((task) => (
                                             <Box display={'flex'} justifyContent="space-between" alignItems={"center"} key={task.id}>
-                                                <FormControlLabel className={task.checked === true ? 'checked' : ''} control={<Checkbox onChange={(e) => handelChecked(e, task.id)} />} label={task.name} />
+                                                <FormControlLabel className={task.checked === true ? 'checked' : ''} control={<Checkbox checked={task.checked === true ? true : false} onChange={(e) => handelChecked(e, task.id)} />} label={task.name} />
                                                 <DeleteForeverIcon sx={{ cursor: 'pointer' }} onClick={() => deletItemHandler(task.id)} />
                                             </Box>
                                         ))}
@@ -105,7 +119,7 @@ function Home() {
                         </Box>
 
                         <Box py={2} px={2} sx={{ width: '100%', bgcolor: grey[100], position: 'absolute', bottom: 0, left: 0, boxSizing: 'border-box' }} display="flex" justifyContent={"space-between"}>
-                            <div>Tasks: {tasks.length}</div>
+                            <div>Tasks: {TodoList.length}</div>
                             <Link to={`/information`}>
                                 <Button variant="outlined" size="small">
                                     view info

@@ -18,8 +18,8 @@ function TodoReducer(state, action) {
 
 function TodoProvider({children}){
     var [state , dispatch] = React.useReducer(TodoReducer , {
-        TodoText: '',
-        TodoList: [111,222,333]
+        // TodoText: '',
+        TodoList: []
     });
 
     return (
