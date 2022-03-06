@@ -1,8 +1,10 @@
 import React from 'react';
 import Container from '@mui/material/Container';
-import { Box, Paper, Typography } from '@mui/material';
-import { pink } from '@mui/material/colors';
+import { Box, Divider, Grid , Paper, Typography } from '@mui/material';
+import { pink , red , green } from '@mui/material/colors';
 import { useTodoState } from './../../context/TodoContext';
+import DoneIcon from '@mui/icons-material/Done';
+import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 
 
 
@@ -20,18 +22,32 @@ function Information(props) {
                             <Typography variant="h6" color="white" textAlign={'center'}>Information</Typography>
                         </Box>
                         <Box p={2}>
-                            <div>wewew</div>
-                            <div>
+                            <Typography variant="body2" textAlign={'left'} sx={{pl: 1}}>All Tasks</Typography>
+                            <Paper elevation={2} sx={{px:2}}>
+                            
                                 {
                                     TodoList.map((task, i) => {
                                         return (
                                             <div key={i}>
-                                                <div >{task.name} {task.checked ? 'true' : 'false'}</div>
+                                                <Grid container py={1} alignItems={"center"} >
+                                                    <Grid item xs={1}>{i+1}</Grid>
+                                                    <Grid item xs>{task.name}</Grid>
+                                                    <Grid item xs="auto">
+                                                        {
+                                                            task.checked ? <DoneIcon color={"success"} /> : <HourglassEmptyIcon color={"warning"} />
+                                                        }
+                                                    </Grid>
+                                                </Grid>
+                                                {
+                                                    TodoList.length > i+1 &&
+                                                    <Divider light={true} />
+                                                }
                                             </div>
                                         );
                                     })
                                 }
-                            </div>
+                            </Paper>
+
                         </Box>
                     </Paper>
                 </Box>

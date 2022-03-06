@@ -9,25 +9,20 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { v4 } from 'uuid';
-import {useTodoState , useTodoDispatch , setTodoList} from './../../context/TodoContext'
+import {useTodoState , useTodoDispatch , setTodoList , setDoneTasksCount} from './../../context/TodoContext'
 
 
 
 
 function Home() {
 
-    const {TodoList} = useTodoState();
+    const {TodoList , DoneTasksCount} = useTodoState();
     const todoDispatch = useTodoDispatch();
 
 
     const [newTask, setNewTask] = useState('')
     const [errText, setErrText] = useState('')
-    // const [tasks, setTasks] = useState([])
-    const [numCecked, setNumCecked] = useState(0)
-
-    console.log('11111');
-
-    // setTasks([...TodoList])
+    // const [numCecked, setNumCecked] = useState(0)
  
 
     const inpElement = useRef();
@@ -38,36 +33,36 @@ function Home() {
         }
         else {
             setErrText('')
-            // setTasks([...tasks, { id: v4(), name: newTask, checked: false }])
             setTodoList(todoDispatch , [...TodoList, { id: v4(), name: newTask, checked: false }] )
             setNewTask('');
             inpElement.current.focus();
         }
     }
-    // -----1234 ---
 
     const deletItemHandler = (id) => {
         const newTasksList = TodoList.filter(task => task.id !== id)
-        // setTasks([...newTasksList])
         setTodoList(todoDispatch , [...newTasksList] )
     }
 
     const handelChecked = (e, id) => {
-
         const editedTaskList = TodoList.map(task => {
             return task.id !== id ? task : { ...task, checked: e.target.checked }
         })
-        // setTasks([...editedTaskList])
         setTodoList(todoDispatch , [...editedTaskList] )
     }
 
     useEffect(() => {
-        setNumCecked(0)
-        TodoList.map(TodoList => {
-            if (TodoList.checked === true) {
-                setNumCecked(prev => prev + 1)
+        // setNumCecked(0)
+        var counter = 0
+        TodoList.map(task => {
+            if (task.checked === true) {
+                // setNumCecked(prev => prev + 1)
+                // setDoneTasksCount(todoDispatch , DoneTasksCount + 1 )
+                counter += 1
             }
-        })
+        });
+        setDoneTasksCount(todoDispatch , counter )
+        // console.log(numCecked , DoneTasksCount );
     }, [TodoList])
 
 
@@ -125,7 +120,7 @@ function Home() {
                                     view info
                                 </Button>
                             </Link>
-                            <div>Done: {numCecked} </div>
+                            <div>Done: {DoneTasksCount} </div>
                         </Box>
                     </Paper>
                 </Box>

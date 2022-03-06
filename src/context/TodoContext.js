@@ -6,8 +6,8 @@ var TodoDispatchContext = React.createContext();
 
 function TodoReducer(state, action) {
     switch (action.type) {
-        case "SET_TODO_TEXT":
-            return { ...state, TodoText: action.payload };
+        case "SET_DONE_TASK_COUNT":
+            return { ...state, DoneTasksCount: action.payload };
         case "SET_TODO_List":
             return { ...state, TodoList: action.payload };
         default: {
@@ -19,6 +19,7 @@ function TodoReducer(state, action) {
 function TodoProvider({children}){
     var [state , dispatch] = React.useReducer(TodoReducer , {
         // TodoText: '',
+        DoneTasksCount: 0,
         TodoList: []
     });
 
@@ -47,13 +48,13 @@ function useTodoDispatch(){
     return context;
 }
 
-export {TodoProvider , useTodoState , useTodoDispatch , setTodoText , setTodoList}
+export {TodoProvider , useTodoState , useTodoDispatch , setDoneTasksCount , setTodoList}
 // ########################################
 
-function setTodoText(dispatch , twittText) {
+function setDoneTasksCount(dispatch , num) {
     dispatch({
-      type: "SET_TODO_TEXT",
-      payload: twittText
+      type: "SET_DONE_TASK_COUNT",
+      payload: num
     });
   }
   
