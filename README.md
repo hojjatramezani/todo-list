@@ -9,8 +9,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 اگه دوست داشتین میتونید پروژه رو دانلود و اجرا کنید تا با کدهای اون آشنا بشین
 همچنین میتونید از لینک زیر دموی پروژه رو مشاهده کنید
 
-![This is an image2](public/images/git-readme/main.png)
-![This is an image2](public/images/git-readme/main2.png)
+![This is an image2](public/images/git-readme/main.jpg)
+![This is an image2](public/images/git-readme/main2.jpg)
 
 
 
@@ -19,24 +19,24 @@ If you want, you can download and run the project to learn how to code it.
 You can also see the project demo from the link below.
 
 ### Project demo
-Please click [Here](https://hojjatramezani.github.io/).
+Please click here [https://hojjatramezani.github.io/](https://hojjatramezani.github.io/).
 
 
 ### Tools used in this project:
-Create React App
-Material ui
-React-router-dom
-uuid
-useState
-useEffect
-useContext
-useReducer
+- Create React App
+- Material ui
+- React-router-dom
+- uuid
+- useState
+- useEffect
+- useContext
+- useReducer
 
 ### Branch Main:
 Please click [Here](https://github.com/hojjatramezani/todo-list/tree/main).
 
 ### Branch Context:
-Developed using useContext and useReducer 
+Developed using **useContext and **useReducer 
 Please click [Here](https://github.com/hojjatramezani/todo-list/tree/context).
 
 
