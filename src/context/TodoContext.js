@@ -10,17 +10,20 @@ function TodoReducer(state, action) {
             return { ...state, DoneTasksCount: action.payload };
         case "SET_TODO_List":
             return { ...state, TodoList: action.payload };
+        case "SET_TODO_List_DELETED":
+            return { ...state, TodoListDeleted: [...state.TodoListDeleted , action.payload]  };
         default: {
             throw new Error('Unhandled action type:');
         }
     }
 }
 
-function TodoProvider({children}){
-    var [state , dispatch] = React.useReducer(TodoReducer , {
+function TodoProvider({ children }) {
+    var [state, dispatch] = React.useReducer(TodoReducer, {
         // TodoText: '',
         DoneTasksCount: 0,
-        TodoList: []
+        TodoList: [],
+        TodoListDeleted: []
     });
 
     return (
@@ -29,38 +32,45 @@ function TodoProvider({children}){
                 {children}
             </TodoDispatchContext.Provider>
         </TodoStateContext.Provider>
-    )
+    );
 }
 
-function useTodoState(){
-    var context = React.useContext(TodoStateContext)
-    if(context === undefined){
+function useTodoState() {
+    var context = React.useContext(TodoStateContext);
+    if (context === undefined) {
         throw new Error("useLayoutDispatch must be used within a LayoutProvider");
     }
     return context;
 }
 
-function useTodoDispatch(){
-    var context = React.useContext(TodoDispatchContext)
-    if(context === undefined){
+function useTodoDispatch() {
+    var context = React.useContext(TodoDispatchContext);
+    if (context === undefined) {
         throw new Error("useLayoutDispatch must be used within a LayoutProvider");
     }
     return context;
 }
 
-export {TodoProvider , useTodoState , useTodoDispatch , setDoneTasksCount , setTodoList}
+export { TodoProvider, useTodoState, useTodoDispatch, setDoneTasksCount, setTodoList , setTodoListDeleted };
 // ########################################
 
-function setDoneTasksCount(dispatch , num) {
+function setDoneTasksCount(dispatch, num) {
     dispatch({
-      type: "SET_DONE_TASK_COUNT",
-      payload: num
+        type: "SET_DONE_TASK_COUNT",
+        payload: num
     });
-  }
-  
-  function setTodoList(dispatch , list) {
+}
+
+function setTodoList(dispatch, list) {
     dispatch({
-      type: "SET_TODO_List",
-      payload: list
+        type: "SET_TODO_List",
+        payload: list
     });
-  }
+}
+
+function setTodoListDeleted(dispatch, list) {
+    dispatch({
+        type: "SET_TODO_List_DELETED",
+        payload: list
+    });
+}

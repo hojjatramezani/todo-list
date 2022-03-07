@@ -9,20 +9,17 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { v4 } from 'uuid';
-import {useTodoState , useTodoDispatch , setTodoList , setDoneTasksCount} from './../../context/TodoContext'
-
+import {useTodoState , useTodoDispatch , setTodoList , setDoneTasksCount , setTodoListDeleted} from './../../context/TodoContext'
 
 
 
 function Home() {
 
-    const {TodoList , DoneTasksCount} = useTodoState();
+    const {TodoList , DoneTasksCount , TodoListDeleted} = useTodoState();
     const todoDispatch = useTodoDispatch();
-
 
     const [newTask, setNewTask] = useState('')
     const [errText, setErrText] = useState('')
-    // const [numCecked, setNumCecked] = useState(0)
  
 
     const inpElement = useRef();
@@ -40,8 +37,13 @@ function Home() {
     }
 
     const deletItemHandler = (id) => {
+
+        const findTaskDeleted = TodoList.find(task => task.id === id)
+        setTodoListDeleted(todoDispatch , findTaskDeleted )
+
         const newTasksList = TodoList.filter(task => task.id !== id)
         setTodoList(todoDispatch , [...newTasksList] )
+        console.log(findTaskDeleted);
     }
 
     const handelChecked = (e, id) => {
@@ -52,17 +54,14 @@ function Home() {
     }
 
     useEffect(() => {
-        // setNumCecked(0)
         var counter = 0
         TodoList.map(task => {
             if (task.checked === true) {
-                // setNumCecked(prev => prev + 1)
-                // setDoneTasksCount(todoDispatch , DoneTasksCount + 1 )
                 counter += 1
             }
         });
         setDoneTasksCount(todoDispatch , counter )
-        // console.log(numCecked , DoneTasksCount );
+        console.log(TodoListDeleted);
     }, [TodoList])
 
 
@@ -113,7 +112,7 @@ function Home() {
                             }
                         </Box>
 
-                        <Box py={2} px={2} sx={{ width: '100%', bgcolor: grey[100], position: 'absolute', bottom: 0, left: 0, boxSizing: 'border-box' }} display="flex" justifyContent={"space-between"}>
+                        <Box py={2} px={2} sx={{ width: '100%', bgcolor: grey[100], position: 'absolute', bottom: 0, left: 0, boxSizing: 'border-box' }} display="flex" justifyContent={"space-between"} alignItems={"center"}>
                             <div>Tasks: {TodoList.length}</div>
                             <Link to={`/information`}>
                                 <Button variant="outlined" size="small">
