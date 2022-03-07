@@ -10,7 +10,7 @@ function NotFound() {
             <SentimentVeryDissatisfiedIcon  sx={{fontSize: '100px'}}/>
         </Box>
         <Box>
-            <Typography textAlign={'center'}> List is impty ... </Typography>
+            <Typography textAlign={'center'}> List is empty ... </Typography>
         </Box>
     </Box>
   )
