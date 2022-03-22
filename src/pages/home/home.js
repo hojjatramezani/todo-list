@@ -34,6 +34,12 @@ function Home() {
     setTasks([...newTasksList]);
   };
 
+  const editHandler = (selectTask) => {
+    const newTasksList = tasks.filter((task) => task.id !== selectTask.id);
+    setNewTask(selectTask.name);
+    setTasks(newTasksList);
+  };
+
   const handelChecked = (e, id) => {
     const editedTaskList = tasks.map((task) => {
       return task.id !== id ? task : { ...task, checked: e.target.checked };
@@ -135,7 +141,7 @@ function Home() {
                         />
                         <EditIcon
                           sx={{ cursor: "pointer" }}
-                          onClick={() => console.log("edit")}
+                          onClick={() => editHandler(task)}
                         />
                       </div>
                     </Box>
