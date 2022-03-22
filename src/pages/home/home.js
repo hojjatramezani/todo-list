@@ -10,6 +10,10 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
 import { v4 } from "uuid";
 
+const filterTaskByID = (tasks, id) => {
+  return tasks.filter((task) => task.id !== id);
+};
+
 function Home() {
   const [newTask, setNewTask] = useState("");
   const [errText, setErrText] = useState("");
@@ -30,12 +34,12 @@ function Home() {
   };
 
   const deletItemHandler = (id) => {
-    const newTasksList = tasks.filter((task) => task.id !== id);
+    const newTasksList = filterTaskByID(tasks, id);
     setTasks([...newTasksList]);
   };
 
   const editHandler = (selectTask) => {
-    const newTasksList = tasks.filter((task) => task.id !== selectTask.id);
+    const newTasksList = filterTaskByID(tasks, selectTask.id);
     setNewTask(selectTask.name);
     setTasks(newTasksList);
   };
